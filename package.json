@@ -1,0 +1,25 @@
+{
+  "name": "ziggs",
+  "version": "1.0.0",
+  "description": "ziggs is a cms written in javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isjxn/ziggs.git"
+  },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "node",
+    "cms"
+  ],
+  "author": "Jan (isJan)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isjxn/ziggs/issues"
+  },
+  "homepage": "https://github.com/isjxn/ziggs#readme"
+}
