@@ -1,7 +1,7 @@
 /**
  * ===-<[MAIN ENTRY POINT OF ZIGGS APPLICATION]>-===
  * 
- * [CAUTION]: The use of certai features can be disabled, 
+ * [CAUTION]: The use of certain features can be disabled, 
  * HOWEVER there is no guarantee whatsoever that the application will still work.
  * 
  * [EXAMPLE]: node index.js --nomysql (To disable Mysql)
