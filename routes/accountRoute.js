@@ -1,4 +1,4 @@
-// indexRoute.js - Index route module.
+// accountRoute.js - Account route module.
 
 const express = require('express');
 const router = express.Router();
