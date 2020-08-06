@@ -1,8 +1,8 @@
 const bodyParser = require('body-parser')
 const logger = require('../lib/log');
 
-const setup = (express) => {
-    let app = express;
+const setup = (_express, _app) => {
+    let app = _app;
 
     app.set('view engine', 'ejs');
     app.use(bodyParser.json());     // to support JSON-encoded bodies
@@ -15,10 +15,9 @@ const setup = (express) => {
         next();
     });
 
+    app.use(_express.static('public'));
     const index = require('./indexRoute.js');
     app.use('/', index);
-    const account = require('./accountRoute.js');
-    app.use('/account', account);
 }
 
 module.exports.setup = setup;
