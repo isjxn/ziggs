@@ -3,6 +3,7 @@
 const express = require('express');
 const config = require('../lib/config');
 const accountManager = require('../lib/account');
+const notification = require('../lib/notification');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -27,7 +28,14 @@ router.get('/ok', (req, res) => {
 
 // Account handling
 router.post('/login', (req, res) => {
-    res.redirect('pages/ok');
+    accountManager.login(req.body.username, req.body.password, (info) => {
+      if (info === 'success') {
+        notification.sendNotification('Login', `${req.body.username} logged in`);
+        res.redirect('pages/ok');
+      } else {
+          res.render('pages/login', {info: info, name: config.name});
+      }
+    });
 });
 
 router.post('/register', (req, res) => {
