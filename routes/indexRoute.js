@@ -22,8 +22,12 @@ router.get('/register', (req, res) => {
   res.render('pages/register', {info: '', name: config.name});
 });
 
-router.get('/ok', (req, res) => {
-  res.render('pages/ok');
+router.get('/home', (req, res) => {
+  if (req.session.username != undefined) {
+    res.render('pages/home', {username: req.session.username, rank: req.session.rank, name: config.name});
+  } else {
+    res.redirect('/login');
+  }
 });
 
 // Account handling
@@ -31,7 +35,9 @@ router.post('/login', (req, res) => {
     accountManager.login(req.body.username, req.body.password, (info) => {
       if (info === 'success') {
         notification.sendNotification('Login', `${req.body.username} logged in`);
-        res.redirect('pages/ok');
+        req.session.username = req.body.username;
+        req.session.rank = accountManager.getRank(req.body.username);
+        res.redirect('/home');
       } else {
           res.render('pages/login', {info: info, name: config.name});
       }
@@ -41,7 +47,10 @@ router.post('/login', (req, res) => {
 router.post('/register', (req, res) => {
     accountManager.register(req.body.username, req.body.email, req.body.password, req.body.rpassword, (info) => {
         if (info === 'success') {
-            res.redirect('pages/ok');
+            accountManager.createSession(req.body.username, req.session);
+            req.session.username = req.body.username;
+            req.session.rank = accountManager.getRank(req.body.username);
+            res.redirect('/home');
         } else {
             res.render('pages/register', {info: info, name: config.name});
         }

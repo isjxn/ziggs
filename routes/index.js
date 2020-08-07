@@ -1,5 +1,6 @@
 const bodyParser = require('body-parser')
 const logger = require('../lib/log');
+const session = require('express-session');
 
 const setup = (_express, _app) => {
     let app = _app;
@@ -15,6 +16,14 @@ const setup = (_express, _app) => {
         next();
     });
 
+    app.use(
+        session(
+            { 
+                secret: 'ziggs-aphelios', resave: false,
+                saveUninitialized: true, cookie: { maxAge: 60000 } 
+            }
+        )
+    );
     app.use(_express.static('public'));
     const index = require('./indexRoute.js');
     app.use('/', index);
