@@ -20,7 +20,7 @@ const setup = (_express, _app) => {
         session(
             { 
                 secret: 'ziggs-aphelios', resave: false,
-                saveUninitialized: true, cookie: { maxAge: 60000 } 
+                saveUninitialized: true, cookie: { maxAge: 100000000 } 
             }
         )
     );

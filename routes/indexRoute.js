@@ -24,7 +24,19 @@ router.get('/register', (req, res) => {
 
 router.get('/home', (req, res) => {
   if (req.session.username != undefined) {
-    res.render('pages/home', {username: req.session.username, rank: req.session.rank, name: config.name});
+    accountManager.getRank(req.session.username, (rank) => {
+      res.render('pages/home', {username: req.session.username, rank: rank, name: config.name, users: { amount: 10 }});
+    });
+  } else {
+    res.redirect('/login');
+  }
+});
+
+router.get('/profile', (req, res) => {
+  if (req.session.username != undefined) {
+    accountManager.getRank(req.session.username, (rank) => {
+      res.render('pages/profile', {username: req.session.username, rank: rank, name: config.name});
+    });
   } else {
     res.redirect('/login');
   }
@@ -34,10 +46,12 @@ router.get('/home', (req, res) => {
 router.post('/login', (req, res) => {
     accountManager.login(req.body.username, req.body.password, (info) => {
       if (info === 'success') {
-        notification.sendNotification('Login', `${req.body.username} logged in`);
-        req.session.username = req.body.username;
-        req.session.rank = accountManager.getRank(req.body.username);
-        res.redirect('/home');
+        accountManager.getRank(req.body.username, (rank) => {
+          notification.sendNotification('Login', `${req.body.username} logged in`);
+          req.session.username = req.body.username;
+          req.session.rank = rank
+          res.redirect('/home');
+        });
       } else {
           res.render('pages/login', {info: info, name: config.name});
       }
