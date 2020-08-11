@@ -20,11 +20,11 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Header -->
-  <%- include('../partials/header.ejs', {name: name, username: username, rank: rank}) %>
+  <%- include('../partials/header.ejs', {name: name, username: user.username, rank: user.rank}) %>
   <!-- /.header -->
 
   <!-- Navbar -->
-  <%- include('../partials/navbar.ejs', {name: name, username: username, rank: rank}) %>
+  <%- include('../partials/navbar.ejs', {name: name, username: user.username, rank: user.rank}) %>
   <!-- /.navbar -->
 
   <!-- Content Wrapper. Contains page content -->
@@ -49,7 +49,7 @@
   <!-- /.content-wrapper -->
 
   <!-- Footer -->
-  <%- include('../partials/footer.ejs', {name: name, username: username, rank: rank}) %>
+  <%- include('../partials/footer.ejs', {name: name, username: user.username, rank: user.rank, profile_picture: user.profile_picture}) %>
   <!-- /.footer -->
 
   <!-- Control Sidebar -->

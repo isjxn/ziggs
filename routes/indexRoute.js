@@ -24,8 +24,8 @@ router.get('/register', (req, res) => {
 
 router.get('/home', (req, res) => {
   if (req.session.username != undefined) {
-    accountManager.getRank(req.session.username, (rank) => {
-      res.render('pages/home', {username: req.session.username, rank: rank, name: config.name, users: { amount: 10 }});
+    accountManager.getInfo(req.session.username, (rank, job_title, full_name, profile_picture) => {
+      res.render('pages/home', {user: { username: req.session.username, rank: rank, profile_picture: profile_picture }, name: config.name, users: { amount: 10} });
     });
   } else {
     res.redirect('/login');
@@ -34,8 +34,8 @@ router.get('/home', (req, res) => {
 
 router.get('/profile', (req, res) => {
   if (req.session.username != undefined) {
-    accountManager.getRank(req.session.username, (rank) => {
-      res.render('pages/profile', {username: req.session.username, rank: rank, name: config.name});
+    accountManager.getInfo(req.session.username, (rank, job_title, full_name, profile_picture, email) => {
+      res.render('pages/profile', {user: { username: req.session.username, rank: rank, job_title: job_title, full_name: full_name, profile_picture: profile_picture, email: email }, name: config.name});
     });
   } else {
     res.redirect('/login');
